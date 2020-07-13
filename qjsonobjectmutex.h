@@ -13,6 +13,7 @@ public:
     explicit QJsonObjectMutex(QObject *parent = nullptr);
     void setValue(QString key, QJsonValue value);
     void setObject(QJsonObject obj);
+    void removeValue(QString key);
     QJsonValue getValue(QString key);
     QJsonObject getObject();
     void setChangeCheck(bool ok){ needChangeCheck=ok; }

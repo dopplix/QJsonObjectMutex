@@ -30,6 +30,21 @@ void QJsonObjectMutex::setObject(QJsonObject obj){
         this->setValue(key,obj.value(key));
     }
 }
+void QJsonObjectMutex::removeValue(QString key){
+    if(!this->keys().contains(key)){
+        return;
+    }
+    if(!mutex.tryLock()){
+        mutex.lock();
+    }
+    this->remove(key);
+    mutex.unlock();
+    if(needChangeCheck){
+        QJsonObject diffObj;
+        diffObj.insert(key,QJsonValue(NULL));
+        emit(somethingChanged(QJsonObject()));
+    }
+}
 QJsonValue QJsonObjectMutex::getValue(QString key){
     if(!mutex.tryLock()){
         mutex.lock();
