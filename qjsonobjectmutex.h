@@ -20,7 +20,7 @@ public:
     QMutex mutex;
 
 private:
-    bool needChangeCheck = false;
+    bool needChangeCheck = true;
 
 signals:
     void somethingChanged(QJsonObject);
